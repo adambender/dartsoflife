@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="dartsoflife.css">
     
     <!-- import the click-counter -->
-    <link rel="components" href="gameboard.html">
+    <link rel="components" href="gameboard-html.html">
   </head>
   <body>
     <h1>Dartsoflife</h1>
     
-    <p>Hello world from Dart!</p>
-    
+    <p>Hello world from Dart!</p> 
     <div id="sample_container_id">
-      <div is="x-game-board" id="gameboard"></div>
+      <x-game-board id="gameboard" height="{{15}}" width="{{15}}"></x-game-board>
     </div>
-
+    <button on-click="nextStep()">Next Step</button>
     <script type="application/dart" src="dartsoflife.dart"></script>
     <script src="packages/browser/dart.js"></script>
   </body>

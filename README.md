@@ -20,3 +20,5 @@ Offer multiple GOL simulation engines
 Implement OT (Drive or otherwise) for collabrative GOL
 
 Use dart logo for fill where possible
+
+infinite size grid
