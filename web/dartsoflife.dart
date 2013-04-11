@@ -7,27 +7,27 @@ import 'package:logging/logging.dart';
  * http://www.dartlang.org/articles/dart-web-components/.
  */
 
-final List<List<int>> model = [[0,0,1,0,0,0,0,0,0,0,0],
-                               [1,0,1,0,0,0,0,0,0,0,0],
-                               [0,1,1,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0,0]];
+final List<List<int>> model = [[0,0,0,0,0,0,0,0,0,0],
+                               [0,0,0,1,0,0,0,0,0,0],
+                               [0,1,0,1,0,0,0,0,0,0],
+                               [0,0,1,1,0,0,0,0,0,0],
+                               [0,0,0,0,0,0,0,0,0,0],
+                               [0,0,0,0,0,0,0,0,0,0],
+                               [0,0,0,0,0,0,0,0,0,0],
+                               [0,0,0,0,0,0,0,0,0,0],
+                               [0,0,0,0,0,0,0,0,0,0],
+                               [0,0,0,0,0,0,0,0,0,0]];
 void main() {  // Enable this to use Shadow DOM in the browser.
   //useShadowDom = true;
   _setupLogger();
 }
 
 void importModel(){
-  document.query('#gameboard').xtag.setExternalModel(model);  
+  document.query('#gameboard').xtag.setExternalModel(model);
 }
 
 void nextStep(){
-  document.query('#gameboard').xtag.nextStep();    
+  document.query('#gameboard').xtag.nextStep();
 }
 void _setupLogger() {
   Logger.root.level = Level.ALL;

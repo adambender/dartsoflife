@@ -5,7 +5,7 @@
     <element name="x-game-board" constructor="GameBoard" extends="div">
       <template>
         <table>
-            <tbody template iterate="row in model">
+            <tbody template iterate="row in visualmodel">
               <tr template iterate="cell in row">
                 <td class="{{cell.alive?'alive':''}}"></td>
               </tr>
