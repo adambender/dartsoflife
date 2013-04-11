@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:web_ui/web_ui.dart';
 import 'package:logging/logging.dart';
-import 'GameEngine.dart';
+import 'gameengine.dart';
 
 class GameBoardHtml extends WebComponent {
   static final Logger logger = new Logger("GameBoardHtml");
