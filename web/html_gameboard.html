@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+  <body>
+    <element name="x-game-board" constructor="GameBoardHtml" extends="div">
+      <template>
+        <table>
+            <tbody template iterate="row in visualmodel">
+              <tr template iterate="cell in row">
+                <td class="{{cell.alive?'alive':''}}"></td>
+              </tr>
+            </tbody>
+        </table>
+      </template>
+      <script type="application/dart" src="html_gameboard.dart"></script>
+    </element>
+  </body>
+</html>

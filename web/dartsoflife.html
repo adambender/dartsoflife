@@ -5,18 +5,15 @@
     <meta charset="utf-8">
     <title>Darts of Life</title>
     <link rel="stylesheet" href="dartsoflife.css">
-
-    <!-- import the click-counter -->
-    <link rel="components" href="gameboard-html.html">
+    <link rel="components" href="html_gameboard.html">
   </head>
   <body>
     <h1>Dartsoflife</h1>
-
     <p>Hello world from Dart!</p>
-    <div id="sample_container_id">
+    <div>
       <x-game-board id="gameboard" gameengine="{{gameEngine}}" ></x-game-board>
     </div>
-     <button on-click="start()">Start</button>
+    <button on-click="start()">Start</button>
     <button on-click="nextStep()">Next Step</button>
     <script type="application/dart" src="dartsoflife.dart"></script>
     <script src="packages/browser/dart.js"></script>
