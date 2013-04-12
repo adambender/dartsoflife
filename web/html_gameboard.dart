@@ -16,7 +16,7 @@ class GameBoardHtml extends WebComponent {
     _gameengine.updates.listen(_updateVisualModel);
   }
 
-  void start(){
+  void inserted(){
     _updateVisualModel(gameengine.currentState);
   }
 
