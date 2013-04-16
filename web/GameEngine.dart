@@ -1,34 +1,38 @@
 library gol;
 import 'dart:async';
+import 'dart:collection';
+import 'package:logging/logging.dart';
 
 class GameEngine{
-  Set<Point> _model = new Set<Point>();
-  StreamController<GameState> updateController = new StreamController();
+  static final Logger logger = new Logger("GameEngine");
+  Set _model = new Set<Point>();
+  final Queue<Set<Point>> _history = new Queue<Set<Point>>();
+  StreamController<GameState> _updateController = new StreamController();
   int _height = 0;
   int _width = 0;
 
   GameEngine(List<List<int>> initialModel){
-    _model.clear();
+    var nextModel = new Set<Point>();
     for(var i = 0; i < initialModel.length; i++){
       for(var j = 0; j< initialModel[i].length; j++){
         if(initialModel[i][j] == 1){
-          _model.add(new Point(i,j));
+          nextModel.add(new Point(i,j));
         }
       }
     }
+    _updateModel(nextModel);
     _height = initialModel.length;
     _width = initialModel[0].length;
   }
 
   GameState get currentState => new GameState(new Set()..addAll(_model), width, height);
-  Stream<GameState> get updates => updateController.stream;
+  Stream<GameState> get updates => _updateController.stream;
 
   //Any live cell with fewer than two live neighbours dies, as if caused by under-population.
   //Any live cell with two or three live neighbours lives on to the next generation.
   //Any live cell with more than three live neighbours dies, as if by overcrowding.
   //Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
   void nextStep(){
-    //process rules
     var nextModel = new Set<Point>();
     for(Point p in _model.expand(_computeNeighbors)){
       var neighborCount = _model.intersection(_computeNeighbors(p)).length;
@@ -36,12 +40,35 @@ class GameEngine{
         nextModel.add(p);
       }
     }
+    _updateModel(nextModel);
+  }
+  
+  void previousStep(){
+    _history.removeFirst();
     _model
-      ..clear()
-      ..addAll(nextModel);
-    updateController.add(new GameState(new Set()..addAll(_model), width, height));
+    ..clear()
+    ..addAll(_history.first);
+    _updateController.add(new GameState(_history.first, width, height));
+    logger.info(_history.length.toString());
+  }
+  
+  void toggleCoord(Point p){
+    if(_model.contains(p)){
+      _updateModel(new Set()..addAll(_model)..remove(p));
+    } else {
+      _updateModel(new Set()..addAll(_model)..add(p));
+    }
   }
 
+  void _updateModel(Set<Point> nextModel){
+    _model
+    ..clear()
+    ..addAll(nextModel);
+    _history.addFirst(nextModel);
+    _updateController.add(new GameState(nextModel, width, height));
+    logger.info(_history.length.toString());
+  }
+  
   Set<Point> _computeNeighbors(Point p){
     var _top = new Point(p.x-1,p.y);
     var _bottom = new Point(p.x+1,p.y);
@@ -65,6 +92,7 @@ class GameEngine{
   }
 
   bool isPointAlive(Point point) => _model.contains(point);
+  int get historySize => _history.length;
 }
 
 class GameState{

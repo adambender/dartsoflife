@@ -29,6 +29,13 @@ void start(){
 void nextStep(){
   document.query('#gameboard').xtag.nextStep();
 }
+
+void previousStep(){
+  document.query('#gameboard').xtag.previousStep();
+}
+
+bool get previousDisabled => gameEngine.historySize == 1;
+
 void _setupLogger() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((LogRecord r) {

@@ -7,7 +7,7 @@
         <table>
             <tbody template iterate="row in visualmodel">
               <tr template iterate="cell in row">
-                <td class="{{cell.alive?'alive':''}}"></td>
+                <td class="{{cell.alive?'alive':''}}" on-click="toggleCell(cell)"></td>
               </tr>
             </tbody>
         </table>

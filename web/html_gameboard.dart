@@ -20,8 +20,16 @@ class GameBoardHtml extends WebComponent {
     _updateVisualModel(gameengine.currentState);
   }
 
+  void toggleCell(Cell cell){
+    _gameengine.toggleCoord(cell.coord);
+  }
+  
   void nextStep(){
     gameengine.nextStep();
+  }
+  
+  void previousStep(){
+    gameengine.previousStep();
   }
 
   void _updateVisualModel(GameState gameState) {
