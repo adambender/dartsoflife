@@ -20,9 +20,9 @@ class GameEngine{
         }
       }
     }
-    _updateModel(nextModel);
     _height = initialModel.length;
     _width = initialModel[0].length;
+    _updateModel(nextModel);
   }
 
   GameState get currentState => new GameState(new Set()..addAll(_model), width, height);
@@ -49,7 +49,6 @@ class GameEngine{
     ..clear()
     ..addAll(_history.first);
     _updateController.add(new GameState(_history.first, width, height));
-    logger.info(_history.length.toString());
   }
   
   void toggleCoord(Point p){
@@ -66,7 +65,6 @@ class GameEngine{
     ..addAll(nextModel);
     _history.addFirst(nextModel);
     _updateController.add(new GameState(nextModel, width, height));
-    logger.info(_history.length.toString());
   }
   
   Set<Point> _computeNeighbors(Point p){
@@ -93,6 +91,12 @@ class GameEngine{
 
   bool isPointAlive(Point point) => _model.contains(point);
   int get historySize => _history.length;
+
+  void setSize(int newHeight, int newWidth) {
+    _height = newHeight;
+    _width = newWidth;
+    _updateController.add(new GameState(_history.first, _width, _height));
+  }
 }
 
 class GameState{
@@ -100,6 +104,10 @@ class GameState{
   final int width;
   final int height;
   GameState(this.cells,this.width,this.height);
+  
+  String toString(){
+    return "height: $height, width:$width, cells: $cells";
+  }
 }
 
 class Point{

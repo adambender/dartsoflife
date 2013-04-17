@@ -1,14 +1,18 @@
 import 'dart:async';
+import 'dart:html' hide Point;
 import 'package:web_ui/web_ui.dart';
 import 'package:logging/logging.dart';
 import 'gameengine.dart';
 
+@observable
 class GameBoardHtml extends WebComponent {
   static final Logger logger = new Logger("GameBoardHtml");
-  final List<List<Cell>> visualmodel = new List<List<Cell>>();
+  final ObservableList<ObservableList<Cell>> visualmodel = new ObservableList<ObservableList<Cell>>();
   GameEngine _gameengine;
-
-  GameBoardHtml();
+  
+  GameBoardHtml(){
+    window.onResize.listen(_resizeGameBoard);
+  }
 
   GameEngine get gameengine => _gameengine;
   void set gameengine(GameEngine newEngine){
@@ -32,10 +36,16 @@ class GameBoardHtml extends WebComponent {
     gameengine.previousStep();
   }
 
+  void _resizeGameBoard(e){
+    int nextHeight = (window.innerHeight/20).floor();
+    int nextWidth = (window.innerWidth/20).floor();
+    gameengine.setSize(nextHeight,nextWidth);
+  }
+  
   void _updateVisualModel(GameState gameState) {
     visualmodel.clear();
     for(var i = 0; i < gameState.height; i++){
-      List<Cell> col = new List<Cell>();
+      ObservableList<Cell> col = new ObservableList<Cell>();
       for(var j = 0; j < gameState.width; j++){
         Point point = new Point(i,j);
         if(gameState.cells.contains(point)){
