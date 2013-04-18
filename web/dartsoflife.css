@@ -3,8 +3,8 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 td{
-  height:20px;
-  width:20px;
+  height:1em;
+  width:1em;
   border: 1px solid black;
 }
 

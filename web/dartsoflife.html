@@ -16,11 +16,13 @@
   <body>
     <h1>Dartsoflife</h1>
     <p>Hello world from Dart!</p>
+    <button on-click="run()" disabled="{{running}}">Run</button>
+    <button on-click="stop()" disabled="{{!running}}" >Stop</button>
+    <button on-click="nextStep()" disabled="{{running}}">Next Step</button>
+    <button on-click="previousStep()" disabled="{{previousDisabled || running}}">Previous Step</button>
     <div>
       <x-game-board id="gameboard" gameengine="{{gameEngine}}"></x-game-board>
     </div>
-    <button on-click="nextStep()">Next Step</button>
-    <button on-click="previousStep()" disabled="{{previousDisabled}}">Previous Step</button>
     <script type="application/dart" src="dartsoflife.dart"></script>
     <script src="packages/browser/dart.js"></script>
   </body>

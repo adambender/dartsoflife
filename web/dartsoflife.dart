@@ -17,8 +17,7 @@ final GameEngine gameEngine = new GameEngine([[0,0,0,0,0,0,0,0,0,0],
                                [0,0,0,0,0,0,0,0,0,0],
                                [0,0,0,0,0,0,0,0,0,0],
                                [0,0,0,0,0,0,0,0,0,0]]);
-void main() {  // Enable this to use Shadow DOM in the browser.
-  //useShadowDom = true;
+void main() {  
   _setupLogger();
 }
 
@@ -30,11 +29,20 @@ void nextStep(){
   document.query('#gameboard').xtag.nextStep();
 }
 
+void run(){
+  document.query('#gameboard').xtag.run();
+}
+
+void stop(){
+  document.query('#gameboard').xtag.stop();
+}
+
 void previousStep(){
   document.query('#gameboard').xtag.previousStep();
 }
 
 bool get previousDisabled => gameEngine.historySize == 1;
+bool get running => document.query('#gameboard').xtag.running;
 
 void _setupLogger() {
   Logger.root.level = Level.ALL;
