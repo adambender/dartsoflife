@@ -21,7 +21,7 @@
     <button on-click="nextStep()" disabled="{{running}}">Next Step</button>
     <button on-click="previousStep()" disabled="{{previousDisabled || running}}">Previous Step</button>
     <div>
-      <x-game-board id="gameboard" gameengine="{{gameEngine}}"></x-game-board>
+      <x-game-board id="gameboard" gameengine="{{gameEngine}}" lifeService="{{lifeService}}"></x-game-board>
     </div>
     <script type="application/dart" src="dartsoflife.dart"></script>
     <script src="packages/browser/dart.js"></script>
