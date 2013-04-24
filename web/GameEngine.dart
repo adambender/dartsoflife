@@ -11,18 +11,10 @@ class GameEngine{
   int _height = 0;
   int _width = 0;
 
-  GameEngine(List<List<int>> initialModel){
-    var nextModel = new Set<Point>();
-    for(var i = 0; i < initialModel.length; i++){
-      for(var j = 0; j< initialModel[i].length; j++){
-        if(initialModel[i][j] == 1){
-          nextModel.add(new Point(i,j));
-        }
-      }
-    }
-    _height = initialModel.length;
-    _width = initialModel[0].length;
-    _updateModel(nextModel);
+  GameEngine(Set<Point> initialModel, int height, int width){
+    _height = height;
+    _width = width;
+    _updateModel(initialModel);
   }
 
   GameState get currentState => new GameState(new Set()..addAll(_model), width, height);
@@ -42,7 +34,7 @@ class GameEngine{
     }
     _updateModel(nextModel);
   }
-  
+
   void previousStep(){
     _history.removeFirst();
     _model
@@ -50,7 +42,7 @@ class GameEngine{
     ..addAll(_history.first);
     _updateController.add(new GameState(_history.first, width, height));
   }
-  
+
   void toggleCoord(Point p){
     if(_model.contains(p)){
       _updateModel(new Set()..addAll(_model)..remove(p));
@@ -66,7 +58,7 @@ class GameEngine{
     _history.addFirst(nextModel);
     _updateController.add(new GameState(nextModel, width, height));
   }
-  
+
   Set<Point> _computeNeighbors(Point p){
     var _top = new Point(p.x-1,p.y);
     var _bottom = new Point(p.x+1,p.y);
@@ -104,7 +96,7 @@ class GameState{
   final int width;
   final int height;
   GameState(this.cells,this.width,this.height);
-  
+
   String toString(){
     return "height: $height, width:$width, cells: $cells";
   }

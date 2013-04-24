@@ -1,4 +1,4 @@
-import 'dart:html';
+import 'dart:html' hide Point;
 import 'dart:async';
 import 'package:web_ui/web_ui.dart';
 import 'package:logging/logging.dart';
@@ -20,16 +20,12 @@ bool hasHistory = false;
 Timer _timer;
 
 final LifeService lifeService = new LifeService();
-final GameEngine gameEngine = new GameEngine([[0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,1,0,0,0,0,0,0],
-                               [0,1,0,1,0,0,0,0,0,0],
-                               [0,0,1,1,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0],
-                               [0,0,0,0,0,0,0,0,0,0]]);
+final GameEngine gameEngine = new GameEngine(
+                      new Set.from([new Point(1,3),
+                                    new Point(2,1),
+                                    new Point(2,3),
+                                    new Point(3,2),
+                                    new Point(3,3)]),10,10);
 
 void main(){
   _setupLogger();
