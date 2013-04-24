@@ -90,7 +90,7 @@ class GameEngine{
   }
 
   bool isPointAlive(Point point) => _model.contains(point);
-  int get historySize => _history.length;
+  int get historyLength => _history.length;
 
   void setSize(int newHeight, int newWidth) {
     _height = newHeight;

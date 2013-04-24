@@ -7,18 +7,15 @@ import 'common.dart';
 
 @observable
 class GameBoardHtml extends WebComponent {
-  Timer timer;
+
   static final Logger logger = new Logger("GameBoardHtml");
   final ObservableList<ObservableList<Cell>> visualmodel = new ObservableList<ObservableList<Cell>>();
   GameEngine _gameengine;
-  bool _running = false;
-  LifeService _lifeService;
+  LifeService _lifeservice;
 
   GameBoardHtml(){
     window.onResize.listen(_resizeGameBoard);
   }
-
-  bool get running => _running;
 
   GameEngine get gameengine => _gameengine;
   void set gameengine(GameEngine newEngine){
@@ -27,27 +24,21 @@ class GameBoardHtml extends WebComponent {
     _resizeGameBoard();
   }
 
-  void get lifeService => _lifeService;
-  void set lifeService(LifeService newLifeService){
-    _lifeService = newLifeService;
-    _lifeService.stream.listen((_){
-//      switch(_.type){
-//        case LifeEvent.NEXT:
-//          nextStep();
-//          break;
-//        case LifeEvent.PREVIOUS:
-//          previousStep();
-//          break;
-//        case LifeEvent.START:
-//          run();
-//          break;
-//        case LifeEvent.STOP:
-//          stop();
-//          break;
-//        default:
-//      }
+  LifeService get lifeservice => _lifeservice;
+  void set lifeservice(LifeService newLifeService){
+    _lifeservice = newLifeService;
+    _lifeservice.stream.listen((_){
+      switch(_.type){
+        case LifeEvent.NEXT:
+          gameengine.nextStep();
+          break;
+        case LifeEvent.PREVIOUS:
+          gameengine.previousStep();
+          break;
+        default:
+      }
     });
-  }
+ }
 
   void inserted(){
     _updateVisualModel(gameengine.currentState);
@@ -55,30 +46,6 @@ class GameBoardHtml extends WebComponent {
 
   void toggleCell(Cell cell){
     _gameengine.toggleCoord(cell.coord);
-  }
-
-  void run(){
-    if(timer == null){
-      _running = true;
-      timer = new Timer.periodic(new Duration(milliseconds:100), (_) => nextStep());
-
-    }
-  }
-
-  void stop(){
-    if(timer != null){
-      _running = false;
-      timer.cancel();
-      timer = null;
-    }
-  }
-
-  void nextStep(){
-    gameengine.nextStep();
-  }
-
-  void previousStep(){
-    gameengine.previousStep();
   }
 
   void _resizeGameBoard([_]){
