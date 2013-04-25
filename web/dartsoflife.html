@@ -6,6 +6,7 @@
     <title>Darts of Life</title>
     <link rel="stylesheet" href="dartsoflife.css">
     <link rel="components" href="html_gameboard.html">
+    <link rel="components" href="svg_gameboard.html">
     <style>
       x-game-board {
         width:100%;
@@ -15,7 +16,6 @@
   </head>
   <body>
     <h1>Dartsoflife</h1>
-    <p>Hello world from Dart!</p>
     <div>
       <button on-click="run()" disabled="{{running}}">Run</button>
       <button on-click="stop()" disabled="{{!running}}" >Stop</button>
@@ -23,7 +23,8 @@
       <button on-click="previousStep()" disabled="{{!hasHistory || running}}">Previous Step</button>
     </div>
     <div>
-      <x-game-board id="gameboard" lifeservice="{{lifeService}}" gameengine="{{gameEngine}}"></x-game-board>
+      <x-html-game-board id="gameboard" lifeservice="{{lifeService}}" gameengine="{{gameEngine}}"></x-html-game-board>
+      <x-svg-game-board id="svggameboard"></x-svg-game-board>
     </div>
     <script type="application/dart" src="dartsoflife.dart"></script>
     <script src="packages/browser/dart.js"></script>

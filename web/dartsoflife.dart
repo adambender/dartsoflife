@@ -6,11 +6,6 @@ import 'package:web_ui/watcher.dart' as watcher;
 import 'gameengine.dart';
 import 'common.dart';
 
-/**
- * Learn about the Web UI package by visiting
- * http://www.dartlang.org/articles/dart-web-components/.
- */
-
 @observable
 bool running = false;
 
@@ -18,8 +13,9 @@ bool running = false;
 bool hasHistory = false;
 
 Timer _timer;
-
 final LifeService lifeService = new LifeService();
+
+//seed the engine with a simple glider
 final GameEngine gameEngine = new GameEngine(
                       new Set.from([new Point(1,3),
                                     new Point(2,1),
